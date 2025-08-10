@@ -44,10 +44,7 @@ class Wagons extends ResourceController
 			(new RedisPublisher())->publish('wagon.added', json_encode([
 				'queue_id' => $coaster_id
 			]));
-			return $this->respondCreated([
-				'message' => "Wagon '{$payload['id']}' dodany do kolejki $coaster_id.",
-				'wagon_data' => $payload
-			]);
+			return $this->respond(true);
 		} catch (Throwable $e) {
 			ApiLogger::getInstance()->logError($e->getMessage(), ErrorType::PHP);
 			return $this->failServerError("Błąd: " . $e->getMessage());
@@ -82,9 +79,7 @@ class Wagons extends ResourceController
 			(new RedisPublisher())->publish('wagon.deleted', json_encode([
 				'queue_id' => $coaster_id
 			]));
-			return $this->respond([
-				'message' => "Wagon '$wagon_id' usunięty z kolejki $coaster_id."
-			]);
+			return $this->respond(true);
 		} catch (Throwable $e) {
 			ApiLogger::getInstance()->logError($e->getMessage(), ErrorType::PHP);
 			return $this->failServerError("Błąd: " . $e->getMessage());
