@@ -6,16 +6,17 @@ if [[ "$1" != "prod" && "$1" != "dev" ]]; then
 fi
 
 PID_FILE="/tmp/codeigniter.$1.pid"
+PORT_FILE="/etc/kolejka_gorska/ci.env.config"
 
-if [[ -f "$PID_FILE" ]]; then
-	PID=$(cat "$PID_FILE")
-	if kill "$PID" > /dev/null 2>&1; then
-		echo "Zatrzymano CodeIgniter ($1) – PID $PID"
-		rm "$PID_FILE"
-	else
-		echo "Nie udało się zabić procesu (PID $PID)"
-	fi
+PORT=$(awk -F "=" -v env="[$1]" '$0 == env {found=1} found && $1 ~ /port/ {gsub(/ /,"",$2); print $2; exit}' "$PORT_FILE")
+
+PID=$(lsof -ti:$PORT)
+
+if [ -z "$PID" ]; then
+    echo "Nie znaleziono procesu dla portu $PORT"
+    exit 1
 else
-	echo "Brak pliku PID: $PID_FILE – serwer $1 prawdopodobnie nie działa"
+	kill -SIGINT $PID
+	rm $PID_FILE
 fi
 
