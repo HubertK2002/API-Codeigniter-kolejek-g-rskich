@@ -57,3 +57,5 @@ curl -X PUT "http://$HOST:$PORT/api/coasters/$COASTER_ID" \
 		\"godzina_od\": \"$GODZINA_OD\",
 		\"godzina_do\": \"$GODZINA_DO\"
 	}"
+
+echo ""

@@ -48,3 +48,4 @@ curl -X POST "http://$HOST:$PORT/api/coasters/$COASTER_ID/wagons" \
 	-d "{
 		\"ilosc_miejsc\": $ILOSC_MIEJSC
 	}"
+echo ""

@@ -40,3 +40,4 @@ fi
 
 curl -X DELETE "http://$HOST:$PORT/api/coasters/$COASTER_ID/wagons/$WAGON_ID" \
 	-H "Accept: application/json"
+echo ""
