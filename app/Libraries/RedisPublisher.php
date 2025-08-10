@@ -10,7 +10,7 @@ class RedisPublisher
 
 	public function __construct()
 	{
-		$config = parse_ini_file('/etc/kolejka_gorska/ci.env.config', true);
+		$config = parse_ini_file('config', true);
 
 		$map = [
 			'development' => 'dev',

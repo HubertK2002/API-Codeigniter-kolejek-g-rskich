@@ -8,7 +8,7 @@ class System extends ResourceController
 {
 	public function environment()
 	{
-		$configPath = '/etc/kolejka_gorska/ci.env.config';
+		$configPath = 'config';
 		$env = ENVIRONMENT;
 
 		$map = [

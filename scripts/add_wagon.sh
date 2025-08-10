@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONFIG_PATH="/etc/kolejka_gorska/ci.env.config"
+CONFIG_PATH="../../config"
 ENVIRONMENT="dev"
 
 # Domyślne wartości wagonu

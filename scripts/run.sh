@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONFIG_FILE="/etc/kolejka_gorska/ci.env.config"
+CONFIG_FILE="../../config"
 
 # 🔍 Walidacja parametru
 if [[ "$1" != "prod" && "$1" != "dev" ]]; then

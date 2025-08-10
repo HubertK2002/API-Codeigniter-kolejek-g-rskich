@@ -6,7 +6,7 @@ if [[ "$1" != "prod" && "$1" != "dev" ]]; then
 fi
 
 PID_FILE="/tmp/codeigniter.$1.pid"
-PORT_FILE="/etc/kolejka_gorska/ci.env.config"
+PORT_FILE="../../config"
 
 PORT=$(awk -F "=" -v env="[$1]" '$0 == env {found=1} found && $1 ~ /port/ {gsub(/ /,"",$2); print $2; exit}' "$PORT_FILE")
 
