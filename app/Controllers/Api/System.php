@@ -8,7 +8,7 @@ class System extends ResourceController
 {
 	public function environment()
 	{
-		$configPath = 'config';
+		$configPath ='../../config';
 		$env = ENVIRONMENT;
 
 		$map = [
