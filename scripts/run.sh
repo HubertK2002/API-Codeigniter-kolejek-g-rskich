@@ -34,6 +34,6 @@ if [[ -z "$HOST" || -z "$PORT" ]]; then
 fi
 
 cd ../
-sudo sh -c "CI_ENVIRONMENT=$ENVIRONMENT php spark serve --host $HOST --port $PORT > /dev/null 2>&1 & echo \$! > $PID_FILE"
+sh -c "CI_ENVIRONMENT=$ENVIRONMENT php spark serve --host $HOST --port $PORT > /dev/null 2>&1 & echo \$! > $PID_FILE"
 
 echo "CodeIgniter ($ENVIRONMENT) uruchomiony na http://$HOST:$PORT (PID zapisany w $PID_FILE)"
