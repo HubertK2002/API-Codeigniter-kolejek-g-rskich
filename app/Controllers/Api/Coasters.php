@@ -9,7 +9,6 @@ use App\Libraries\RequestValidator;
 use App\Libraries\TimeValidator;
 use App\Libraries\ApiLogger;
 use App\Libraries\ErrorType;
-use App\Libraries\RedisPublisher;
 use Throwable;
 
 class Coasters extends BaseController
@@ -40,7 +39,7 @@ class Coasters extends BaseController
 			return $this->failServerError($e->getMessage());
 		}
 
-		(new RedisPublisher())->publish('coaster.added', json_encode(['queue_id' => $queueId]));
+		$redisData->publish('coaster.added', json_encode(['queue_id' => $queueId]));
 		return $this->respond($response);
 	}
 
@@ -83,7 +82,7 @@ class Coasters extends BaseController
 
 			$redis->updateQueue($coaster_id, $payload);
 
-			(new RedisPublisher())->publish('coaster.updated', json_encode(['queue_id' => $coaster_id]));
+			$redis->publish('coaster.updated', json_encode(['queue_id' => $coaster_id]));
 			return $this->respond([
 				'message' => "Kolejka $coaster_id zaktualizowana (bez zmiany długości trasy).",
 				'data' => $payload

@@ -8,7 +8,6 @@ use App\Libraries\RedisData;
 use App\Libraries\ApiLogger;
 use App\Libraries\ErrorType;
 use CodeIgniter\RESTful\ResourceController;
-use App\Libraries\RedisPublisher;
 use Throwable;
 
 class Wagons extends ResourceController
@@ -41,7 +40,7 @@ class Wagons extends ResourceController
 
 			$redis->insertWagon($coaster_id, $payload);
 
-			(new RedisPublisher())->publish('wagon.added', json_encode([
+			$redis->publish('wagon.added', json_encode([
 				'queue_id' => $coaster_id
 			]));
 			return $this->respond(true);
@@ -76,7 +75,7 @@ class Wagons extends ResourceController
 				return $this->failNotFound($msg);
 			}
 
-			(new RedisPublisher())->publish('wagon.deleted', json_encode([
+			$redis->publish('wagon.deleted', json_encode([
 				'queue_id' => $coaster_id
 			]));
 			return $this->respond(true);

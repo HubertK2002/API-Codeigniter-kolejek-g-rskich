@@ -58,6 +58,11 @@ class RedisData extends RedisLock{
 		return $this->redis->hDel($key, $wagonId) > 0;
 	}
 
+	public function publish(string $channel, string $message): void
+	{
+		$this->redis->publish($channel, $message);
+	}
+
 }
 
 ?>
