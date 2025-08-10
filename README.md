@@ -1,68 +1,42 @@
-# CodeIgniter 4 Application Starter
+#### Skrypty aplikacji
+Skrypty znajdują się w katalogu scripts, należy je uruchamiać z uprawnieniami sudo.
+Do dyspozycji jest skrypt uruchamiający, aby go użyć `bash run.sh mode`
+  
+Mode przyjmuje dwie wersje
 
-## What is CodeIgniter?
+  - prod
+  - dev
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+Zakończyć działanie codeignitera można za pomocą skryptu stop.sh, który również przyjmuje parametr mode.
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+Dodawanie kolejki i aktualizowanie kolejki działa z parametrami domyślnymi.
+Aby zmienić parametry domyślne należy podać odpowiednie parametry do skryptu bash.
+Podanie parametrów jest dowolne. Jednakże do zaktualizowania kolejki wymagane jest podanie id kolejki, które musi być ostatnim parametrem skryptu.
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+Przykład
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+      bash update_queue.sh -p 10 1
 
-## Installation & updates
+  Gdzie 10 to liczba personelu a 1 to id kolejki
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+Możliwe parametry
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+  - p - personel
+  - e - environment (dev / prod) domyślnie dev
+  - k - liczba klientów
+  - s - prędkość wagonu
+  - f - godzina_od (godzina_dwucyfrowo:minuta_dwucyfrowo)
+  - t - godzina_do (godzina_dwucyfrowo:minuta_dwucyfrowo)
 
-## Setup
+Oprócz tego można także usunąć i dodać wagon
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+Aby dodać wagon należy podać id kolejki `bash add_wagon.sh -i 1`
 
-## Important Change with index.php
+Aby usunąć wagon należy podać id kolejki oraz id wagonu `bash delete_wagon.sh -i 1 -w 1`
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+W obu przypadkach domyślnym środowiskiem jest dev, można zmienić za pomocą -e dev/prod
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+### Logi
+Logi znajdują się w katalogu writable/logs/api
 
-**Please** read the user guide for a better explanation of how CI4 works!
-
-## Repository Management
-
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Server Requirements
-
-PHP version 8.1 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+logi są rozdzielone na development i production. W środku katalogów znajdują się access_logi, oraz error_logi. error_logi uzupełnią się tylko kiedy w aplikacji pojawi się błąd (Exception). Logami związanymi z kolejką zajmuje się aplikacja cli
